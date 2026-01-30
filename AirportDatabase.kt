@@ -6,8 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [AirportEntity::class],
-    version = 1,
+    entities = [
+        AirportEntity::class,
+        RunwayEntity::class,
+        AirportFrequencyEntity::class,
+        NavaidEntity::class
+    ],
+    version = 2,
     exportSchema = false
 )
 abstract class AirportDatabase : RoomDatabase() {
@@ -22,7 +27,10 @@ abstract class AirportDatabase : RoomDatabase() {
                     context.applicationContext,
                     AirportDatabase::class.java,
                     "airports.db"
-                ).build().also { INSTANCE = it }
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                    .also { INSTANCE = it }
             }
     }
 }

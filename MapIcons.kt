@@ -14,7 +14,7 @@ object MapIcons {
             style = Paint.Style.FILL
         }
         val green = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = android.graphics.Color.parseColor("#00E676")
+            color = android.graphics.Color.parseColor("#000000")
             style = Paint.Style.FILL
         }
 
