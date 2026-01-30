@@ -1,5 +1,33 @@
 package com.adityaapte.virtualcockpit
 
+enum class MountStyle { FLAT, UPRIGHT }
+enum class MountMode { AUTO, FLAT, UPRIGHT }
+
+enum class NavSource { HDG, GPS }
+
+data class Waypoint(
+    val ident: String,   // ICAO/IATA
+    val name: String,
+    val lat: Double,
+    val lon: Double
+)
+
+data class DirectToPlan(
+    val from: Waypoint? = null,
+    val to: Waypoint? = null,
+    val isActive: Boolean = false
+)
+
+
+data class GnssSat(
+    val svid: Int,
+    val constellation: Int,
+    val azimuthDeg: Float,
+    val elevationDeg: Float,
+    val cn0DbHz: Float,
+    val usedInFix: Boolean
+)
+
 data class NavData(
     // ---- GPS ----
     val lat: Double? = null,
@@ -18,6 +46,7 @@ data class NavData(
     // ---- GNSS ----
     val satsInView: Int? = null,
     val satsUsed: Int? = null,
+    val satellites: List<GnssSat> = emptyList(),
 
     // ---- Barometer ----
     val pressureHpa: Double? = null,
@@ -27,6 +56,15 @@ data class NavData(
     // ---- Attitude ----
     val pitchDeg: Double? = null,
     val rollDeg: Double? = null,
+
+    // ---- Mount selection ----
+    val mountMode: MountMode = MountMode.AUTO,
+    val mountStyle: MountStyle = MountStyle.FLAT,
+
+    // ---- Nav mode / plan ----
+    val navSource: NavSource = NavSource.HDG,
+    val directTo: DirectToPlan = DirectToPlan(),
+
 
     // ---- Turn rate ----
     val turnRateDps: Double? = null,        // deg/sec (approx from gyro Z)

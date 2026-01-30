@@ -14,12 +14,12 @@ import androidx.room.PrimaryKey
     ]
 )
 data class AirportEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey val id: Long,          // CSV id (NO auto-generate)
     val name: String,
     val iata: String?,
-    val icao: String?,
+    val icao: String?,                 // from airports.csv "ident"
     val lat: Double,
     val lon: Double,
-    val type: String?,      // e.g. "large_airport"
-    val country: String?    // ISO country if present
+    val type: String?,
+    val country: String?
 )
